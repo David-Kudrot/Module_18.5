@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authentication Practice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+      *{color: black;}
+    </style>
+  </head>
+  <body class="text-dark" style="background-color: rgb(245, 242, 242);">
+
+    <nav class="navbar navbar-expand-lg" style="background-color: #1f2d3b;">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white fs-4" href="{% url 'home' %}">Auth Project</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-white fs-5" aria-current="page" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5" href="#">Link</a>
+              </li>
+            </ul>
+            <div class="d-flex me-3" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success text-white" type="submit">Search</button>
+            </div>
+            <div class="d-flex" role="search">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              {% if request.user.is_authenticated %}
+
+                <li class="nav-item">
+                  <a class="text-white btn btn-primary mx-2" href="{% url 'profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="text-white btn btn-warning mx-2" href="{% url 'logout' %}">Logout</a>
+                </li>
+              
+              {% else %}
+
+                <li class="nav-item">
+                  <a class="text-white btn btn-success mx-2" href="{% url 'signup' %}">Signup</a>
+                </li>
+                <li class="nav-item">
+                  <a class="text-white btn btn-warning mx-2" href="{% url 'login' %}">Login</a>
+                </li>
+                
+              {% endif %}
+              
+              
+            </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+<!-- profile.html -->
+{% if messages %}
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+    <div id="toast-container">
+        {% for message in messages %}
+            <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <h3 class="text-{{message.tags}}">{{message}}</h3>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Rest of your profile page content -->
+
+       
+    
+
+
+      {% block content %}
+        
+      {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
